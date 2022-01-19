@@ -1,0 +1,40 @@
+schema: '2.0'
+stages:
+  preprocess:
+    cmd: python preprocessing_pipeline/scripts/preprocess.py
+    deps:
+    - path: preprocessing_pipeline/data/raw/final_covid_19.csv
+      md5: 63c46297552bc765a3be401be198cb3c
+      size: 1401209133
+    - path: preprocessing_pipeline/scripts/preprocess.py
+      md5: 129bf4d23ace64dda8ce66fcd125f950
+      size: 10003
+    - path: suplementary_data/countries.csv
+      md5: 41a8d858f2a2af44f9e23080af1d1a48
+      size: 3650
+    - path: suplementary_data/incites_jcr_wos_2020.csv
+      md5: c9937fee7381f42fae40f5cebafecfd3
+      size: 2890236
+    outs:
+    - path: preprocessing_pipeline/data/raw/jcr_2020_processed.csv
+      md5: 5dd96773a3587cdc08c61b6609593862
+      size: 2943999
+    - path: preprocessing_pipeline/data/raw/manuscript_covid_processed.csv
+      md5: 6d783e58f816484b9de05e9b983dea99
+      size: 1419363242
+  merge:
+    cmd: python preprocessing_pipeline/scripts/merge_datasets.py
+    deps:
+    - path: preprocessing_pipeline/data/raw/jcr_2020_processed.csv
+      md5: 5dd96773a3587cdc08c61b6609593862
+      size: 2943999
+    - path: preprocessing_pipeline/data/raw/manuscript_covid_processed.csv
+      md5: 6d783e58f816484b9de05e9b983dea99
+      size: 1419363242
+    - path: preprocessing_pipeline/scripts/merge_datasets.py
+      md5: b4f916f49552f0b3b68181637b9a49bb
+      size: 3958
+    outs:
+    - path: preprocessing_pipeline/data/prepared/final_manuscript_covid.csv
+      md5: 43e57b5cb1a93ffbe984f4fcf9fde43b
+      size: 1435720103

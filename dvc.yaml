@@ -1,0 +1,19 @@
+stages:
+  preprocess:
+    cmd: python preprocessing_pipeline/scripts/preprocess.py
+    deps:
+    - preprocessing_pipeline/data/raw/final_covid_19.csv
+    - preprocessing_pipeline/scripts/preprocess.py
+    - suplementary_data/countries.csv
+    - suplementary_data/incites_jcr_wos_2020.csv
+    outs:
+    - preprocessing_pipeline/data/raw/jcr_2020_processed.csv
+    - preprocessing_pipeline/data/raw/manuscript_covid_processed.csv
+  merge:
+    cmd: python preprocessing_pipeline/scripts/merge_datasets.py
+    deps:
+    - preprocessing_pipeline/data/raw/jcr_2020_processed.csv
+    - preprocessing_pipeline/data/raw/manuscript_covid_processed.csv
+    - preprocessing_pipeline/scripts/merge_datasets.py
+    outs:
+    - preprocessing_pipeline/data/prepared/final_manuscript_covid.csv
